@@ -40,7 +40,7 @@ function getEarnings(item){
 }
 
 function findMax(pre, cur){
-    return pre > cur ? pre : cur;
+    return Number(pre) > Number(cur) ? Number(pre) : Number(cur);
 }
 
 exercise.earningsAbove = function (target) {
@@ -72,12 +72,11 @@ exercise.totalBasePayroll = function () {
     use Map and Reduce to do this
 
     */
-
-    var earnings = exercise.data.data.map(getEarnings);
-    var res = earnings.reduce(function(pre, cur){
-        return pre + cur;
+    var res = exercise.data.data.reduce( function(pre, cur){
+        return pre + Number(cur[11]);
     }, 0);
-    return res;
+    
+    return Math.floor(res);
 
 };
 
@@ -88,11 +87,13 @@ exercise.totalEarningsWithOvertime = function () {
     return the total Earnings with Overtime as an integer
 
     */
-
-    var res = exercise.data.data.reduce( function(pre, cur){
-        return pre + Number(cur[18]) + Number(cur[14]);
-    },0);
-    return res;
+    var earnings = exercise.data.data.map(getEarnings);
+    var res = earnings.reduce(function(pre, cur){
+        return pre + cur;
+    }, 0);
+    
+    return Math.floor(res);
+    
 };
 
 exercise.numberUniqueZipCodes = function () {
@@ -106,7 +107,7 @@ exercise.numberUniqueZipCodes = function () {
     var zipCodes = [];
 
     exercise.data.data.forEach( function(item){
-        if (!zipCodes.includes(item[19])) zipCodes.push(item[19]);
+        if (!zipCodes.includes(Number(item[19]))) zipCodes.push(Number(item[19]));
     });
     return zipCodes.length;
 
